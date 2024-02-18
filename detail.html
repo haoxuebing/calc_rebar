@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>钢筋结算详情</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #userInfo, #batchDetails {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        #batchDetails table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        #batchDetails table, #batchDetails th, #batchDetails td {
+            border: 1px solid #ddd;
+        }
+
+        #batchDetails th, #batchDetails td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        #totalAmountDisplay {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>钢筋结算详情</h1>
+
+    <div id="userInfo">
+        <h2>用户信息</h2>
+        <p><strong>姓名:</strong> 张三</p>
+        <p><strong>手机:</strong> 15200000000</p>
+        <p><strong>地址:</strong> 河北省邯郸市</p>
+        <p><strong>用途:</strong> xx</p>
+    </div>
+
+    <div id="batchDetails">
+        <h2>批次信息</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>批次</th>
+                    <th>钢筋类型</th>
+                    <th>数量</th>
+                    <th>计算方式</th>
+                    <th>单价</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>钢筋类型1</td>
+                    <td>10</td>
+                    <td>按吨计算</td>
+                    <td>50.00</td>
+                </tr>
+                <!-- 可以根据实际情况添加更多批次信息 -->
+            </tbody>
+        </table>
+
+        <div id="totalAmountDisplay">
+            <h2>总金额</h2>
+            <p><strong>总金额:</strong> 500.00</p>
+        </div>
+    </div>
+
+</body>
+</html>

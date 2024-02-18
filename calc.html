@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>钢筋结算</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        fieldset {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        legend {
+            font-weight: bold;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #totalAmountDisplay {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        #userInfo {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>钢筋结算</h1>
+
+    <form id="rebarForm">
+        <div id="userInfo">
+            <label for="userName">姓名:</label>
+            <input type="text" id="userName" name="userName" required>
+
+            <label for="userPhone">手机:</label>
+            <input type="tel" id="userPhone" name="userPhone" required>
+
+            <label for="userAddress">地址:</label>
+            <input type="text" id="userAddress" name="userAddress" required>
+
+            <label for="userPurpose">用途:</label>
+            <input type="text" id="userPurpose" name="userPurpose" required>
+        </div>
+
+        <div id="batchContainer"></div>
+
+        <button type="button" onclick="addBatch()">添加批次</button>
+        <button type="button" onclick="calculateTotal()">计算总金额</button>
+
+        <div id="totalAmountDisplay"></div>
+    </form>
+
+    <script>
+        var batchCount = 0;
+
+        function addBatch() {
+            batchCount++;
+            var batchContainer = document.getElementById('batchContainer');
+
+            var fieldset = document.createElement('fieldset');
+            fieldset.id = 'batch' + batchCount;
+            fieldset.innerHTML = '<legend>批次 ' + batchCount + '</legend>' +
+                '<button type="button" onclick="deleteBatch(' + batchCount + ')">删除批次</button>' +
+                '<label for="rebarType' + batchCount + '">钢筋类型:</label>' +
+                '<select id="rebarType' + batchCount + '" name="rebarType' + batchCount + '" required>' +
+                '<option value="type1">钢筋类型1</option>' +
+                '<option value="type2">钢筋类型2</option>' +
+                '<option value="type3">钢筋类型3</option>' +
+                '</select>' +
+                '<label for="quantity' + batchCount + '">数量:</label>' +
+                '<input type="number" id="quantity' + batchCount + '" name="quantity' + batchCount + '" required>' +
+                '<label for="calculationMethod' + batchCount + '">计算方式:</label>' +
+                '<select id="calculationMethod' + batchCount + '" name="calculationMethod' + batchCount + '" required>' +
+                '<option value="ton">按吨计算</option>' +
+                '<option value="length">按根数计算</option>' +
+                '</select>' +
+                '<label for="unitPrice' + batchCount + '">单价:</label>' +
+                '<input type="number" id="unitPrice' + batchCount + '" name="unitPrice' + batchCount + '" required>';
+
+            batchContainer.appendChild(fieldset);
+            sortBatches();
+        }
+
+        function deleteBatch(batchId) {
+            var batchContainer = document.getElementById('batchContainer');
+            var batchToRemove = document.getElementById('batch' + batchId);
+            if (batchToRemove) {
+                batchContainer.removeChild(batchToRemove);
+                sortBatches();
+            }
+        }
+
+        function sortBatches() {
+            var batchContainer = document.getElementById('batchContainer');
+            var batches = batchContainer.getElementsByTagName('fieldset');
+            for (var i = 0; i < batches.length; i++) {
+                batches[i].getElementsByTagName('legend')[0].innerText = '批次 ' + (i + 1);
+            }
+        }
+
+        function calculateTotal() {
+            var totalAmount = 0;
+
+            for (var i = 1; i <= batchCount; i++) {
+                var quantityElement = document.getElementById('quantity' + i);
+                var unitPriceElement = document.getElementById('unitPrice' + i);
+                var calculationMethodElement = document.getElementById('calculationMethod' + i);
+
+                if (quantityElement && unitPriceElement && calculationMethodElement) {
+                    var quantity = parseFloat(quantityElement.value);
+                    var unitPrice = parseFloat(unitPriceElement.value);
+                    var calculationMethod = calculationMethodElement.value;
+
+                    if (!isNaN(quantity) && !isNaN(unitPrice)) {
+                        if (calculationMethod === 'ton') {
+                            totalAmount += quantity * unitPrice;
+                        } else if (calculationMethod === 'length') {
+                            totalAmount += quantity * unitPrice;
+                        }
+                    }
+                }
+            }
+
+            var totalAmountDisplay = document.getElementById('totalAmountDisplay');
+            totalAmountDisplay.innerHTML = '总金额: ' + totalAmount.toFixed(2);
+        }
+    </script>
+
+</body>
+</html>
