@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,7 +34,8 @@
             margin-bottom: 10px;
         }
 
-        input, select {
+        input,
+        select {
             width: 100%;
             padding: 8px;
             margin-bottom: 15px;
@@ -65,6 +67,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <h1>钢筋结算</h1>
@@ -84,7 +87,24 @@
             <input type="text" id="userPurpose" name="userPurpose" required>
         </div>
 
-        <div id="batchContainer"></div>
+        <div id="batchContainer">
+            <fieldset id="batch1">
+                <legend>批次 1</legend>
+                <button type="button" onclick="deleteBatch(1)">删除批次</button>
+                <label for="rebarType1">钢筋类型:</label><select id="rebarType1" name="rebarType1" required="">
+                    <option value="type1">钢筋类型1</option>
+                    <option value="type2">钢筋类型2</option>
+                    <option value="type3">钢筋类型3</option>
+                </select>
+                <label for="quantity1">数量:</label><input type="number" id="quantity1" name="quantity1" required="">
+                <label for="calculationMethod1">计算方式:</label><select id="calculationMethod1" name="calculationMethod1"
+                    required="">
+                    <option value="ton">按吨计算</option>
+                    <option value="length">按根数计算</option>
+                </select>
+                <label for="unitPrice1">单价:</label><input type="number" id="unitPrice1" name="unitPrice1" required="">
+            </fieldset>
+        </div>
 
         <button type="button" onclick="addBatch()">添加批次</button>
         <button type="button" onclick="calculateTotal()">计算总金额</button>
@@ -169,4 +189,5 @@
     </script>
 
 </body>
+
 </html>
